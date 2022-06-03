@@ -1,11 +1,24 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Memorybox from './pages/Memorybox';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Chat from './pages/Chat';
 
 function App() {
   return (
-    <div>
-      <h1>What's good G!</h1>
-    </div>
+    <>
+      <Router>
+        <div>
+          <Routes>
+            <Route path='/' element={<Memorybox />} />
+            <Route path='/chat' element={<Chat />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Routes>
+        </div>
+      </Router>
+    </>
   );
 }
 
