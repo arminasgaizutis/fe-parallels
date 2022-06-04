@@ -1,12 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { login, reset } from "../features/auth/authSlice";
+import Spinner from "../components/Spinner";
 
-const Login = () => {
+function Login() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const { email, password } = formData;
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -14,9 +38,21 @@ const Login = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const userData = {
+      email,
+      password,
+    };
+
+    dispatch(login(userData));
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -26,26 +62,28 @@ const Login = () => {
       <section>
         <form onSubmit={onSubmit}>
           <input
-            type='email'
-            id='email'
-            name='email'
+            type="email"
+            id="email"
+            name="email"
             value={email}
-            placeholder='*Enter your email'
+            placeholder="*Enter your email"
+            onChange={onChange}
           />
           <br />
           <input
-            type='password'
-            id='password'
-            name='password'
+            type="password"
+            id="password"
+            name="password"
             value={password}
-            placeholder='*Enter your password'
+            placeholder="*Enter your password"
+            onChange={onChange}
           />
           <br />
-          <button type='submit'>Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </section>
     </>
   );
-};
+}
 
 export default Login;

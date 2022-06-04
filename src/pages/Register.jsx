@@ -67,7 +67,7 @@ const Register = () => {
         <h1>Register:</h1>
         <p>Please create an account</p>
       </section>
-      <section>
+      <section className='form'>
         <form onSubmit={onSubmit}>
           <input
             type='text'
@@ -75,6 +75,7 @@ const Register = () => {
             name='username'
             value={username}
             placeholder='*Enter your username'
+            onChange={onChange}
           />
           <br />
           <input
@@ -83,6 +84,7 @@ const Register = () => {
             name='email'
             value={email}
             placeholder='*Enter your email'
+            onChange={onChange}
           />{' '}
           <br />
           <input
@@ -91,6 +93,7 @@ const Register = () => {
             name='password'
             value={password}
             placeholder='*Enter your password'
+            onChange={onChange}
           />
           <br />
           <input
@@ -99,6 +102,7 @@ const Register = () => {
             name='password2'
             value={password2}
             placeholder='*Confirm your password'
+            onChange={onChange}
           />
           <br />
           <input
@@ -107,7 +111,8 @@ const Register = () => {
             name='about'
             value={about}
             placeholder='Tell us little bit about yourself'
-          />{' '}
+            onChange={onChange}
+          />
           <br />
           <input
             type='url'
@@ -115,9 +120,10 @@ const Register = () => {
             name='picc'
             value={pic}
             placeholder='url for your profile pic'
+            onChange={onChange}
           />
           <br />
-          <button type='submit'>Submit</button>
+          <button type='submit' >Submit</button>
         </form>
       </section>
     </>
